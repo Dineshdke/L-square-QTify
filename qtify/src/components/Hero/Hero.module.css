@@ -4,9 +4,21 @@
 }
 
 .wrapper{
+    display: flex;
     width: 100vw;
     height: 270px;
     display: flex;
     justify-content: center;
     padding: 32px;
+}
+
+.textHero{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 32px;
+
 }
