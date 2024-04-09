@@ -10,7 +10,7 @@ export default function Navbar(){
             <a href='/'>
                 <Logo/>
             </a>
-                <Search placeholder='Search a album of your choice'/>
+                <Search placeholder='Search a song of your choice'/>
                 <Button>Give feedback</Button>
         </nav>
 
