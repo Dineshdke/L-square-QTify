@@ -1,0 +1,12 @@
+.hero{
+    width: 799px;
+    height: 212 px;
+}
+
+.wrapper{
+    width: 100vw;
+    height: 270px;
+    display: flex;
+    justify-content: center;
+    padding: 32px;
+}
