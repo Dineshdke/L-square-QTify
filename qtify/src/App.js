@@ -6,6 +6,8 @@ import React from 'react';
 import {Outlet} from 'react-router-dom';
 import { fetchTopAlbums,fetchNewAlbums,fetchSongs } from './components/api/api.js';
 import { useEffect,useState } from 'react';
+import { StyledEngineProvider } from '@mui/material/styles';
+
 
 
 function App(){
@@ -29,8 +31,10 @@ function App(){
 
   return(
     <>
-      <Navbar/>
-      <Outlet context={{data:{topAlbums,newAlbums}}}/>
+      <StyledEngineProvider injectFirst>
+        <Navbar/>
+        <Outlet context={{data:{topAlbums,newAlbums}}}/>
+      </StyledEngineProvider>
     </>
   )
 }

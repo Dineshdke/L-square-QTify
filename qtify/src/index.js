@@ -14,6 +14,10 @@ const router = createBrowserRouter([
       {
         path:'/',
         element:<Homepage/>
+      },
+      {
+        path:'/album/:albumId',
+        element:<Homepage/>
       }
     ]
   }

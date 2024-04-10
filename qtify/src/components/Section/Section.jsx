@@ -27,7 +27,7 @@ export default function Section({title,data,type}) {
                         (
                             <div className={styles.albumContainer}>
                                 {data.map((item) => {
-                                        return <Card topSong={item}/>
+                                        return <Card key={item.id} topSong={item}/>
                                     })};                                
                             </div>
                         ):                         
