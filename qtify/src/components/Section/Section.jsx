@@ -1,59 +1,41 @@
 import React, { useEffect,useState } from 'react';
 import styles from './Section.module.css';
 import Card from '../Card/Card';
-import axios from 'axios';
+import Carousel from '../Carousel/Carousel';
+import {CircularProgress} from '@mui/material';
 
 
 
+export default function Section({title,data,type}) {
 
-export default function Section({first,last}) {
+    const [carouselToggle,setCarouselToggle] = useState(true);
 
-    const [topSong,setTopSong] = useState([]);
-    const [newSong,setNewSong] = useState([]);
-
-    const fetchTopSongs =async () => {
-        const songs = (await axios.get('https://qtify-backend-labs.crio.do/albums/top')).data;
-        setTopSong(songs);    
+    const handleCarousel = () =>{
+        setCarouselToggle(!carouselToggle);
     }
-
-    const fetchNewSongs =async () => {
-        const songs = (await axios.get('https://qtify-backend-labs.crio.do/albums/new')).data;
-        setNewSong(songs);    
-    }
-
-    useEffect(() =>{
-        fetchTopSongs();
-        fetchNewSongs();
-    },[])
 
     return(
         <>
             <div className={styles.parent}>
                 <div className={styles.section}>
-                    <div className={styles.first}>{first}</div>
-                    <button className={styles.last}>{last}</button>
+                    <h3 className={styles.first}>{title}</h3>
+                    <h4 className={styles.carouselToggle} onClick={handleCarousel}>{carouselToggle ? 'Show All' : 'Collapse'}</h4>
                 </div>
-                <div className={styles.albumContainer}>
-                    {topSong.length>0 ? (
-                        topSong.map((item) => {
-                            return <Card topSong={item}/>
-                        }))
-                    : ''}
-                </div>
+                {data.length === 0 ? (<CircularProgress/>) : (
+                    <>
+                        {carouselToggle ? 
+                        (
+                            <div className={styles.albumContainer}>
+                                {data.map((item) => {
+                                        return <Card topSong={item}/>
+                                    })};                                
+                            </div>
+                        ):                         
+                        (<Carousel data={data}/>) }
+
+                    </>
+                )}
             </div>
-            <div className={styles.parent}>
-                <div className={styles.section}>
-                    <div className={styles.first}>New Albums</div>
-                    <button className={styles.last}>{last}</button>
-                </div>
-                <div className={styles.albumContainer}>
-                    {newSong.length>0 ? (
-                        newSong.map((item) => {
-                            return <Card topSong={item}/>
-                        }))
-                    : ''}
-                </div>
-            </div>              
         </>
     )
 }
