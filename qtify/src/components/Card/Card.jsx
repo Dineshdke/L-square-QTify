@@ -1,20 +1,28 @@
 import React from "react";
 import styles from './Card.module.css';
+import Tooltip from '@mui/material/Tooltip';
+import { Link } from "react-router-dom";
+
 
 
 export default function Card({topSong}) {
 
   return (
-      <div className={styles.card}>
-            <div className={styles.wrapper}>
-                <img className={styles.image} src={topSong.image}alt='cardImage'/>
-            </div>
-            <div className={styles.pills}>
-                <div className={styles.pillsContainer}>
-                    {topSong.follows} Follows
+        <Tooltip title={`${topSong.songs.length} Songs`} placement='top'>
+            <Link to={`/album/${topSong.slug}`}>    
+                <div className={styles.card}>
+                    <div className={styles.wrapper}>
+                        <img className={styles.image} src={topSong.image}alt='cardImage'/>
+                    </div>
+                    <div className={styles.pills}>
+                        <div className={styles.pillsContainer}>
+                            {topSong.follows} Follows
+                        </div>
+                    </div>
+                    <div className={styles.subtitle}>{topSong.title}</div>
                 </div>
-            </div>
-            <div className={styles.subtitle}>{topSong.title}</div>
-        </div>
+            </Link>
+        </Tooltip>
+
   );
 }
