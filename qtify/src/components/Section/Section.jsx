@@ -8,15 +8,22 @@ import axios from 'axios';
 
 export default function Section({first,last}) {
 
-    const [data,setData] = useState([]);
-    const fetchSongs =async () => {
+    const [topSong,setTopSong] = useState([]);
+    const [newSong,setNewSong] = useState([]);
+
+    const fetchTopSongs =async () => {
         const songs = (await axios.get('https://qtify-backend-labs.crio.do/albums/top')).data;
-        console.log(songs[0].follows)
-        setData(songs)
-    
+        setTopSong(songs);    
     }
+
+    const fetchNewSongs =async () => {
+        const songs = (await axios.get('https://qtify-backend-labs.crio.do/albums/new')).data;
+        setNewSong(songs);    
+    }
+
     useEffect(() =>{
-        fetchSongs();
+        fetchTopSongs();
+        fetchNewSongs();
     },[])
 
     return(
@@ -27,13 +34,26 @@ export default function Section({first,last}) {
                     <button className={styles.last}>{last}</button>
                 </div>
                 <div className={styles.albumContainer}>
-                    {data.length>0 ? (
-                        data.map((item) => {
-                            return <Card data={item}/>
+                    {topSong.length>0 ? (
+                        topSong.map((item) => {
+                            return <Card topSong={item}/>
                         }))
                     : ''}
                 </div>
-            </div>            
+            </div>
+            <div className={styles.parent}>
+                <div className={styles.section}>
+                    <div className={styles.first}>New Albums</div>
+                    <button className={styles.last}>{last}</button>
+                </div>
+                <div className={styles.albumContainer}>
+                    {newSong.length>0 ? (
+                        newSong.map((item) => {
+                            return <Card topSong={item}/>
+                        }))
+                    : ''}
+                </div>
+            </div>              
         </>
     )
 }
