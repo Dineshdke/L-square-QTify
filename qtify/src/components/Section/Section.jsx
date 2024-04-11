@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Section.module.css';
 import Card from '../Card/Card';
 import Carousel from '../Carousel/Carousel';
@@ -8,7 +8,7 @@ import {CircularProgress} from '@mui/material';
 
 export default function Section({title,data,type}) {
 
-    const [carouselToggle,setCarouselToggle] = useState(true);
+    const [carouselToggle,setCarouselToggle] = useState(false);
 
     const handleCarousel = () =>{
         setCarouselToggle(!carouselToggle);
@@ -19,7 +19,7 @@ export default function Section({title,data,type}) {
             <div className={styles.parent}>
                 <div className={styles.section}>
                     <h3 className={styles.first}>{title}</h3>
-                    <h4 className={styles.carouselToggle} onClick={handleCarousel}>{carouselToggle ? 'Show All' : 'Collapse'}</h4>
+                    <h4 className={styles.carouselToggle} onClick={handleCarousel}>{carouselToggle ? 'Collapse' : 'Show All'}</h4>
                 </div>
                 {data.length === 0 ? (<CircularProgress/>) : (
                     <>
@@ -28,7 +28,7 @@ export default function Section({title,data,type}) {
                             <div className={styles.albumContainer}>
                                 {data.map((item) => {
                                         return <Card key={item.id} topSong={item}/>
-                                    })};                                
+                                    })}                               
                             </div>
                         ):                         
                         (<Carousel data={data}/>) }
