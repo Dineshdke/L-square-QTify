@@ -4,7 +4,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 // import Section from './components/Section/Section.jsx';
 import React from 'react';
 import {Outlet} from 'react-router-dom';
-import { fetchTopAlbums,fetchNewAlbums,fetchSongs } from './components/api/api.js';
+import { fetchTopAlbums,fetchNewAlbums,fetchSongs,fetchGenre } from './components/api/api.js';
 import { useEffect,useState } from 'react';
 import { StyledEngineProvider } from '@mui/material/styles';
 
@@ -27,13 +27,13 @@ function App(){
     generateData('songs',fetchSongs);
   },[]);
 
-  const {topAlbums =[],newAlbums=[]} = data;
+  const {topAlbums =[],newAlbums=[],songs=[]} = data;
 
   return(
     <>
       <StyledEngineProvider injectFirst>
         <Navbar/>
-        <Outlet context={{data:{topAlbums,newAlbums}}}/>
+        <Outlet context={{data:{topAlbums,newAlbums,songs}}}/>
       </StyledEngineProvider>
     </>
   )

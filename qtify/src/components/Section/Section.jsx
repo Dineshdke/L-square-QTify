@@ -14,28 +14,45 @@ export default function Section({title,data,type}) {
         setCarouselToggle(!carouselToggle);
     }
 
+    console.log(type!=='songs',type,title)
     return(
         <>
+            {type !=='songs' ?
             <div className={styles.parent}>
                 <div className={styles.section}>
                     <h3 className={styles.first}>{title}</h3>
+                    
                     <h4 className={styles.carouselToggle} onClick={handleCarousel}>{carouselToggle ? 'Collapse' : 'Show All'}</h4>
                 </div>
                 {data.length === 0 ? (<CircularProgress/>) : (
                     <>
-                        {carouselToggle ? 
+                        {carouselToggle && data ? 
                         (
                             <div className={styles.albumContainer}>
                                 {data.map((item) => {
-                                        return <Card key={item.id} topSong={item}/>
+                                        console.log(data,'BEfore passing to card')
+                                        return <Card key={item.id} topSong={item} type={type}/>
                                     })}                               
                             </div>
                         ):                         
-                        (<Carousel data={data}/>) }
+                        (<Carousel data={data} type={type}/>) }
 
                     </>
                 )}
-            </div>
+            </div> :
+            <div className={styles.parent}>
+                <div className={styles.section}>
+                    <h3 className={styles.first}>{title}</h3>
+                </div>
+                {data.length === 0 ? (<CircularProgress/>) : (
+                    <>
+                        <Carousel data={data} type={type}/>                
+                    </>
+                )}
+            </div> 
+            
+            }
+
         </>
     )
 }

@@ -8,7 +8,7 @@ import styles from './Carousel.module.css';
 import './custom-button.css';
 import Card from "../Card/Card";
 
-export default function Carousel({data}) {
+export default function Carousel({data,type}) {
 
     return (
         <>
@@ -21,7 +21,7 @@ export default function Carousel({data}) {
                 className="mySwiper"
             >
                 {data.map((item) => {
-                    return <SwiperSlide className={styles.albumContainer}><Card key={item.id} topSong={item}/></SwiperSlide>
+                    return <SwiperSlide className={styles.albumContainer}><Card key={item.id} topSong={item} type={type}/></SwiperSlide>
                 })}
             </Swiper>
         </>         
