@@ -2,7 +2,6 @@ import React, { useEffect,useState } from "react";
 import styles from './Card.module.css';
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from "react-router-dom";
-import BasicTabs from "../Tabs/Tabs.jsx"
 
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -15,12 +14,6 @@ import Tabs from '@mui/material/Tabs';
 
 
 export default function Card({topSong,type}) {
-
-    const [value, setValue] = useState('1');
-    const handleChange = (e) => {
-        console.log(e)
-        setValue(e.target.value );
-      };
 
   return (
         <>  
@@ -42,7 +35,6 @@ export default function Card({topSong,type}) {
             </Tooltip>
             :
             <>
-                <BasicTabs/>
                 <div className={styles.card}>
                     <div className={styles.wrapper}>
                         <img className={styles.image} src={topSong.image}alt='cardImage'/>

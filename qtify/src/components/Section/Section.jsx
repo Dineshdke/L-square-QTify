@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Section.module.css';
 import Card from '../Card/Card';
 import Carousel from '../Carousel/Carousel';
 import {CircularProgress} from '@mui/material';
-
+import BasicTabs from "../Tabs/Tabs.jsx";
+import { fetchGenre } from '../api/api.js';
 
 
 export default function Section({title,data,type}) {
 
     const [carouselToggle,setCarouselToggle] = useState(false);
+    const [genre,setGenre]= useState([]);
 
     const handleCarousel = () =>{
         setCarouselToggle(!carouselToggle);
     }
 
-    console.log(type!=='songs',type,title)
+    useEffect(()=>{
+        let result = fetchGenre().then(item => {setGenre(item.data)});
+        
+    },[]);  
+    
+
     return(
         <>
             {type !=='songs' ?
@@ -44,9 +51,10 @@ export default function Section({title,data,type}) {
                 <div className={styles.section}>
                     <h3 className={styles.first}>{title}</h3>
                 </div>
+                
                 {data.length === 0 ? (<CircularProgress/>) : (
                     <>
-                        <Carousel data={data} type={type}/>                
+                        {genre.length>0 ? <BasicTabs genre={genre} data={data} type={type}/> : ''}
                     </>
                 )}
             </div> 

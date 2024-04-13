@@ -1,10 +1,8 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar.jsx';
-// import Hero from './components/Hero/Hero.jsx';
-// import Section from './components/Section/Section.jsx';
 import React from 'react';
 import {Outlet} from 'react-router-dom';
-import { fetchTopAlbums,fetchNewAlbums,fetchSongs,fetchGenre } from './components/api/api.js';
+import { fetchTopAlbums,fetchNewAlbums,fetchSongs } from './components/api/api.js';
 import { useEffect,useState } from 'react';
 import { StyledEngineProvider } from '@mui/material/styles';
 

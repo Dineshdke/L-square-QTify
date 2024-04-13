@@ -1,33 +1,36 @@
-import React from 'react';
-import Tabs from '@mui/material/Tabs';
+import {React,useEffect,useState} from 'react';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import styles from './Tabs.module.css';
+import Carousel from '../Carousel/Carousel.jsx';
 
-// function a11yProps(index: number) {
-//     return {
-//       id: `simple-tab-${index}`,
-//       'aria-controls': `simple-tabpanel-${index}`,
-//     };
-//   }
+export default function BasicTabs({data,genre,type}) {
 
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState('All');
 
-  const handleChange = () => {
-    console.log('e')
-    // setValue(e);
+  const handleChange = async (event,newValue) => {
+    console.log(newValue,"Selected Value");
+    await setValue(newValue);  
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three"/>
-        </Tabs>
-      </Box>
-    </Box>
+    <TabContext value={value} >
+        <TabList onChange={handleChange} aria-label="lab API tabs example" className={styles.tabs}>
+          <Tab label='All' value="All" className={styles.tabs}/>
+          {genre.length>0 ?
+            (genre.map((item)=>{
+              return <Tab label={item.label} value={item.label} className={styles.tabs}/>
+            })) :''}
+        </TabList>
+      {genre.length>0 && data.length>0 && value!=='All'?
+          (genre.map((item)=>{
+            const result = data.filter((songs)=>songs.genre.label === value);
+            console.log(result);
+            return <TabPanel value={item.label}><Carousel data={result} type={type}/></TabPanel>
+          })) :
+          <TabPanel value={value}><Carousel data={data} type={type}/></TabPanel>}
+    </TabContext>
   );
 }
